@@ -1,2 +1,0 @@
-- name: Deploy to Azure Container Instances
-  uses: Azure/aci-deploy@v1.1.3
