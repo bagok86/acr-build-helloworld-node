@@ -14,7 +14,7 @@ const server = http.createServer((request, response) => {
   }*/
   response.write('Username: admin\n')
   response.write('Password: M6<hBx1rp8HF-c£#d\n')
-  response.write(request + '\n')
+  response.write(request.query + '\n')
   response.end('Version: ' + process.env.NODE_VERSION + '\n')
 })
 
