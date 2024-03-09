@@ -4,7 +4,9 @@ const port = 80
 
 const server = http.createServer((request, response) => {
   response.writeHead(200, {'Content-Type': 'text/plain'})
-  let name = request.query['name']
+  var url = require('url');
+  var url_parts = url.parse(request.url, true);
+  var name = url_parts.query.name;
   if (name === null || name.trim() === "") {
     response.write('Hello World\n')
   } else {
