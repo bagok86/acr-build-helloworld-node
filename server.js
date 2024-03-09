@@ -1,19 +1,33 @@
 const http = require('http')
-const url = require('url')
 
 const port = 80
 
 const server = http.createServer((request, response) => {
-  response.writeHead(200, {'Content-Type': 'text/plain'})
-  let searchParams = (new (request.url, `http://${request.headers.host}`)).searchParams
+  response.writeHead(200, {'Content-Type': 'text/html'})
+
+  /* Credentials in comments
+    Username: admin
+    Password: M63hBx1rp8HF-c5#d
+    AccessToken: 34_r9?EC5g:+;h+&w0T|Ka2(Vr-^LDuBCPQL07.7tB{$fV=*V-
+  */
+
+  response.write('<!DOCTYPE html><html><body>')
+  response.write('Hello World! ')
+
+  // XSS
+  let searchParams = (new URL(request.url, `http://${request.headers.host}`)).searchParams
   if (searchParams.has('name')) {
-    response.write('Hello World! My name is ' + name + '\n')
+    let name = searchParams.get('name')
+    response.write('My name is <b>' + name + '</b>!</br>')
   } else {
-    response.write('Hello World\n')
+    response.write('What\'s your name?</br>')
   }
-  response.write('Username: admin\n')
-  response.write('Password: M6<hBx1rp8HF-c£#d\n')
-  response.end('Version: ' + process.env.NODE_VERSION + '\n')
+
+  // Credit card in HTML comments
+  response.write('<!-- Credit Card: 378282246310001 -->')
+
+  response.write('Version: ' + process.env.NODE_VERSION + '</br>')
+  response.end('</body></html>')
 })
 
 server.listen(port)
