@@ -1,20 +1,19 @@
 const http = require('http')
+const url = require('url')
 
 const port = 80
 
 const server = http.createServer((request, response) => {
   response.writeHead(200, {'Content-Type': 'text/plain'})
-  /*var url = require('url');
-  var url_parts = url.parse(request.url, true);
-  var name = url_parts.query.name;
-  if (name === null || name.trim() === "") {
-    response.write('Hello World\n')
-  } else {
+  let params = url.parse(request.url, true).query;
+  let name = params.name;
+  if () {
     response.write('Hello World! My name is ' + name + '\n')
-  }*/
+  } else {
+    response.write('Hello World\n')
+  }
   response.write('Username: admin\n')
   response.write('Password: M6<hBx1rp8HF-c£#d\n')
-  response.write(request.query + '\n')
   response.end('Version: ' + process.env.NODE_VERSION + '\n')
 })
 
