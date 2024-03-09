@@ -5,9 +5,8 @@ const port = 80
 
 const server = http.createServer((request, response) => {
   response.writeHead(200, {'Content-Type': 'text/plain'})
-  let params = url.parse(request.url, true).query;
-  let name = params.name;
-  if (name) {
+  let searchParams = (new (request.url, `http://${request.headers.host}`)).searchParams
+  if (searchParams.has('name')) {
     response.write('Hello World! My name is ' + name + '\n')
   } else {
     response.write('Hello World\n')
